@@ -178,7 +178,7 @@ service cloud.firestore {
     }
 
     match /{document=**} {
-      allow read, write: if false; ok
+      allow read, write: if false; 
     }
   }
 }
