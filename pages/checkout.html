@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Checkout | ARDTIG STORES</title>
+  <link rel="icon" href="/logo.png" type="image/png">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/commerce.css">
+  <script type="module" src="/js/checkout.js"></script>
+  <script type="module" src="/js/page-shell.js"></script>
+</head>
+<body>
+  <header class="page-topbar">
+    <a class="brand" href="/"><img src="/logo.png" alt="" width="42" height="42"><span><b>ARDTIG</b><strong>STORES</strong></span></a>
+    <a class="back-link" href="/"><span>←</span> BACK TO STORE</a>
+  </header>
+  <main class="page-shell">
+    <div class="commerce-title">
+      <p class="eyebrow"><span>SECURE CHECKOUT</span> FLUTTERWAVE</p>
+      <h1 class="onboard-heading">CONFIRM &amp; <em>PAY.</em></h1>
+    </div>
+    <p class="admin-message" id="checkout-message" role="status" aria-live="polite" hidden></p>
+    <div class="payment-layout" id="checkout-layout" hidden>
+      <section class="payment-summary">
+        <p class="eyebrow"><span>ORDER SUMMARY</span> NGN</p>
+        <h2 id="checkout-description">Loading order…</h2>
+        <div class="payment-price" id="checkout-price">₦—</div>
+        <p class="panel-intro">Choose Pay with Bank to authorize in your bank flow, or Bank Transfer to receive a temporary account number.</p>
+      </section>
+      <section class="payment-panel">
+        <div id="diamond-fields" hidden>
+          <label class="field-label payment-field" for="player-uid">FREE FIRE UID</label>
+          <input class="text-input" id="player-uid" inputmode="numeric" autocomplete="off" maxlength="40" placeholder="Enter your Free Fire UID">
+          <label class="field-label payment-field" for="game-name">IN-GAME NAME</label>
+          <input class="text-input" id="game-name" autocomplete="off" maxlength="80" placeholder="Enter your in-game name">
+          <p class="warning-box">Check your UID carefully. Your paid diamond order will be sent to admin review.</p>
+        </div>
+        <div class="checkout-methods" id="checkout-methods">
+          <button class="form-button" type="button" data-method="bank_account">PAY WITH BANK</button>
+          <button class="form-button secondary" type="button" data-method="bank_transfer">BANK TRANSFER</button>
+        </div>
+        <section class="bank-details" id="transfer-instructions" hidden aria-live="polite">
+          <p class="field-label">TRANSFER TO THIS TEMPORARY ACCOUNT</p>
+          <div class="bank-row"><span><small>BANK</small><b id="transfer-bank">—</b></span></div>
+          <div class="bank-row"><span><small>ACCOUNT NUMBER</small><b id="transfer-account">—</b></span><button class="copy-button" type="button" id="copy-account">COPY</button></div>
+          <div class="bank-row"><span><small>AMOUNT TO SEND</small><b id="transfer-amount">—</b></span></div>
+          <div class="bank-row"><span><small>ACCOUNT EXPIRES</small><b id="transfer-expiry">—</b></span></div>
+          <p class="panel-intro">Transfer the exact amount shown from your bank app. Flutterwave may include applicable fees in that amount; your wallet receives the top-up value you selected. We’ll update this page after payment confirmation.</p>
+        </section>
+        <p class="admin-message" id="checkout-status" role="status" aria-live="polite"></p>
+        <button class="form-button secondary" type="button" id="check-payment" hidden>CHECK PAYMENT STATUS</button>
+        <a class="form-button" id="my-orders" href="/pages/myaccounts.html" hidden>VIEW MY ORDERS</a>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer compact-footer"><a class="brand" href="/"><img src="/logo.png" alt="" width="38" height="38"><span><b>ARDTIG</b><strong>STORES</strong></span></a><span>© 2026 ARDTIG STORES</span></footer>
+</body>
+</html>

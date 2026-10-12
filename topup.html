@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a"><title>Top Up ARDTIG Balance | ARDTIG STORES</title>
+  <link rel="icon" href="/logo.png" type="image/png">
+  <link rel="stylesheet" href="/css/pages.css"><link rel="stylesheet" href="/css/commerce.css">
+  <script type="module" src="/js/wallet-topup.js"></script><script type="module" src="/js/page-shell.js"></script>
+</head>
+<body>
+  <header class="page-topbar"><a class="brand" href="/"><img src="/logo.png" alt="" width="42" height="42"><span><b>ARDTIG</b><strong>STORES</strong></span></a><a class="back-link" href="/"><span>←</span> BACK TO STORE</a></header>
+  <main class="page-shell wallet-shell">
+    <p class="eyebrow"><span>ARDTIG WALLET</span> TOP UP</p><h1 class="onboard-heading">TOP UP <em>BALANCE.</em></h1>
+    <p class="panel-intro wallet-intro">Add ARDTIG balance instantly. ₦1 paid adds 1 ARDTIG balance.</p>
+    <p class="wallet-current">CURRENT BALANCE <strong id="topup-balance">₦0.00</strong></p>
+    <form class="topup-option custom-topup" id="wallet-topup-form">
+      <label class="field-label" for="topup-amount-input">TOP-UP AMOUNT</label>
+      <input class="text-input" id="topup-amount-input" type="number" min="1500" max="100000" step="500" value="1500" inputmode="numeric" required>
+      <small>Choose any amount from ₦1,500 to ₦100,000 in ₦500 steps. You receive the same amount in ARDTIG balance.</small>
+      <button class="form-button" type="submit">CONTINUE TO PAYMENT</button>
+    </form>
+    <section class="checkout-methods" id="topup-methods" hidden aria-label="Payment method">
+      <button class="form-button" type="button" data-method="bank_account">PAY WITH BANK</button>
+      <button class="form-button secondary" type="button" data-method="bank_transfer">BANK TRANSFER</button>
+    </section>
+    <p class="admin-message" id="topup-message" role="status" aria-live="polite" hidden></p>
+  </main>
+  <footer class="site-footer compact-footer"><a class="brand" href="/"><img src="/logo.png" alt="" width="38" height="38"><span><b>ARDTIG</b><strong>STORES</strong></span></a><span>© 2026 ARDTIG STORES</span></footer>
+</body>
+</html>
