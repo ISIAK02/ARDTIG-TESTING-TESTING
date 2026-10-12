@@ -88,13 +88,38 @@ def flutterwave_request(path, method="GET", payload=None):
         with urlopen(request, timeout=20) as response:
             result = json.loads(response.read())
     except HTTPError as error:
-        app.logger.warning("Flutterwave API returned HTTP %s", error.code)
+        provider_error = flutterwave_error_details(error.read())
+        app.logger.error(
+            "Flutterwave API %s %s failed: HTTP %s, code=%s, message=%s",
+            method, path, error.code, provider_error[0], provider_error[1],
+        )
         raise RuntimeError("Flutterwave could not start this payment.") from error
     except (URLError, TimeoutError, json.JSONDecodeError) as error:
         raise RuntimeError("Flutterwave could not start this payment.") from error
     if not isinstance(result, dict) or result.get("status") not in {"success", "successful"}:
+        provider_error = flutterwave_error_details(result)
+        app.logger.error(
+            "Flutterwave API %s %s rejected the request: code=%s, message=%s",
+            method, path, provider_error[0], provider_error[1],
+        )
         raise RuntimeError("Flutterwave could not start this payment.")
     return result.get("data") or {}
+
+
+def flutterwave_error_details(response):
+    if isinstance(response, bytes):
+        try:
+            response = json.loads(response)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return "unknown", "Non-JSON error response"
+    if not isinstance(response, dict):
+        return "unknown", "Empty or invalid error response"
+    error = response.get("error") or response.get("data") or response
+    if isinstance(error, dict):
+        code = str(error.get("code") or error.get("type") or "unknown")[:80]
+        message = str(error.get("message") or response.get("message") or "Request rejected")[:300]
+        return code, message
+    return "unknown", str(response.get("message") or error)[:300]
 
 
 def firebase_app():
