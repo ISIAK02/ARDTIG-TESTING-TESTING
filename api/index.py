@@ -58,7 +58,15 @@ def flutterwave_access_token():
     try:
         with urlopen(request, timeout=15) as response:
             result = json.loads(response.read())
-    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as error:
+    except HTTPError as error:
+        provider_error = flutterwave_error_details(error.read())
+        app.logger.error(
+            "Flutterwave OAuth token request failed: HTTP %s, code=%s, message=%s",
+            error.code, provider_error[0], provider_error[1],
+        )
+        raise RuntimeError("Flutterwave authentication failed.") from error
+    except (URLError, TimeoutError, json.JSONDecodeError) as error:
+        app.logger.error("Flutterwave OAuth token request failed: %s", type(error).__name__)
         raise RuntimeError("Flutterwave authentication failed.") from error
 
     token = result.get("access_token")
@@ -117,7 +125,10 @@ def flutterwave_error_details(response):
     error = response.get("error") or response.get("data") or response
     if isinstance(error, dict):
         code = str(error.get("code") or error.get("type") or "unknown")[:80]
-        message = str(error.get("message") or response.get("message") or "Request rejected")[:300]
+        message = str(
+            error.get("message") or error.get("error_description")
+            or response.get("error_description") or response.get("message") or "Request rejected"
+        )[:300]
         return code, message
     return "unknown", str(response.get("message") or error)[:300]
 
